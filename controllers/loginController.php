@@ -1,0 +1,20 @@
+<?php
+require_once("../includes/initializer.php");
+require_once(CLASS_DIR."access.php");
+
+if(isset($_POST["user"]))
+{
+    if($users=$access->loginProfessional($_POST["user"],$_POST["password"]))
+    {
+        $user=$users["nombre"];
+        $_SESSION["user"]=$user;
+        header("Location:".MAIN_LINK."index.php");        
+        exit;
+    }
+}
+else
+{
+    header("Location:".MAIN_LINK."index.php");
+    exit;
+}
+?>

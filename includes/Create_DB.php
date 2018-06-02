@@ -19,8 +19,8 @@ require_once("../includes/initializer.php");
                  	fecha_nac date NOT NULL,
                  	direccion VARCHAR(150) NOT NULL,
                  	codigo_postal INT(5) NOT NULL,
-                 	tfno_movil INT(15) NOT NULL,
-                 	tfno_fijo INT(15) NOT NULL,
+                 	tfno_movil VARCHAR(15) NOT NULL,
+                 	tfno_fijo VARCHAR(15) NOT NULL,
                  	email VARCHAR(150) NOT NULL,
                  	pais VARCHAR(150) NOT NULL,
                  	estado_civil VARCHAR(150) NOT NULL,
@@ -43,12 +43,10 @@ require_once("../includes/initializer.php");
                         CONSTRAINT FK_ID_Usuario FOREIGN KEY (id_usuario) REFERENCES ".PREF_TABLE."usuarios(id_usuario) ON UPDATE CASCADE ON DELETE CASCADE);";
         $nivel_formativo="CREATE TABLE IF NOT EXISTS ".PREF_TABLE."nivel_formativo(
                         id_formativo INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                        nombre VARCHAR(150) NOT NULL,
-                        descripcion VARCHAR(200) NOT NULL);";
+                        nombre VARCHAR(150) NOT NULL);";
         $situacion_laboral="CREATE TABLE IF NOT EXISTS ".PREF_TABLE."situacion_laboral(
                         id_laboral INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                        nombre VARCHAR(150) NOT NULL,
-                        descripcion VARCHAR(200) NOT NULL);";
+                        nombre VARCHAR(150) NOT NULL);";
         $prestacion_social="CREATE TABLE IF NOT EXISTS ".PREF_TABLE."prestacion_social(
                         id_prestacion INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                         nombre VARCHAR(150) NOT NULL);";
@@ -63,8 +61,12 @@ require_once("../includes/initializer.php");
         $profesionales="CREATE TABLE IF NOT EXISTS ".PREF_TABLE."profesionales(
                         id_profesional INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                         nombre VARCHAR(150) NOT NULL,
-                        tfno_movil INT(15) NOT NULL,
+                        tfno_movil VARCHAR(15) NOT NULL,
                         email VARCHAR(150) NOT NULL UNIQUE);";
+        $administradores="CREATE TABLE IF NOT EXISTS ".PREF_TABLE."administradores(
+                        id_admin INT(5) NOT NULL AUTO_INCREMENT,
+                        id_profesional INT(5) NOT NULL UNIQUE,
+                        CONSTRAINT FK_ProfesionalAdmin FOREIGN KEY (id_profesional) REFERENCES ".PREF_TABLE."profesionales(id_profesional) ON UPDATE CASCADE ON DELETE CASCADE);";
         $login="CREATE TABLE IF NOT EXISTS ".PREF_TABLE."login(
                         id_login INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                         id_profesional INT(5) NOT NULL,
@@ -76,7 +78,7 @@ require_once("../includes/initializer.php");
                         tipo VARCHAR(150) NOT NULL);";
         $proyectos="CREATE TABLE IF NOT EXISTS ".PREF_TABLE."proyectos(
                         id_proyecto INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                        nombre VARCHAR(150) NOT NULL);";
+                        nombre VARCHAR(150) NOT NULL UNIQUE);";
         $funcion_proyecto="CREATE TABLE IF NOT EXISTS ".PREF_TABLE."funcion_proyecto(
                         id_profesional INT(5) NOT NULL,
                         id_proyecto INT(5) NOT NULL,
@@ -174,6 +176,14 @@ require_once("../includes/initializer.php");
         else
         {
             echo "Tabla Profesionales no creada<br>";
+        }
+        if(mysqli_query($conexion,$administradores))
+        {
+            echo "Tabla Administradores creada<br>";
+        }
+        else
+        {
+            echo "Tabla Administradores no creada<br>";
         }
         if(mysqli_query($conexion,$proyectos))
         {

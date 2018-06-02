@@ -7,20 +7,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Starter</title>
+  <title><?php echo NAME_ASOC; ?></title>
   <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+  <link rel="stylesheet" href="<?php echo MAIN_LINK; ?>bower_components/bootstrap/dist/css/bootstrap.min.css" />
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<?php echo MAIN_LINK; ?>bower_components/font-awesome/css/font-awesome.min.css" />
   <!-- Ionicons -->
-  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="<?php echo MAIN_LINK; ?>bower_components/Ionicons/css/ionicons.min.css" />
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?php echo MAIN_LINK; ?>bower_components/select2/dist/css/select2.min.css"/>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="<?php echo MAIN_LINK; ?>bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" />
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="<?php echo MAIN_LINK; ?>dist/css/AdminLTE.min.css" />
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
-  <link rel="stylesheet" href="dist/css/skins/skin-green.min.css">
+  <link rel="stylesheet" href="<?php echo MAIN_LINK; ?>dist/css/skins/skin-green.min.css" />
+  <link rel="stylesheet" href="<?php echo MAIN_LINK; ?>dist/css/estilos.css" />
+  <link rel="shortcut icon" href="<?php echo MAIN_LINK; ?>dist/img/favicon.png" />
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,7 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Google Font -->
   <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic" />
 </head>
 
 <body class="hold-transition skin-green sidebar-mini">
@@ -41,11 +49,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="<?php echo MAIN_LINK; ?>index.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><img src="<?php echo MAIN_LINK; ?>dist/img/logo-mini.png" /></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><img src="<?php echo MAIN_LINK; ?>dist/img/logo.png" /></span>
     </a>
 
     <!-- Header Navbar -->
@@ -158,22 +166,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="<?php echo MAIN_LINK; ?>dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs"><?php if(isset($_SESSION["user"])){ echo ucwords($_SESSION["user"]); } ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="<?php echo MAIN_LINK; ?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  <?php if(isset($_SESSION["user"])){ echo ucwords($_SESSION["user"]); } ?>
                 </p>
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
+              <!--<li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -184,23 +191,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <div class="col-xs-4 text-center">
                     <a href="#">Friends</a>
                   </div>
-                </div>
+                </div>-->
                 <!-- /.row -->
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="#" class="btn btn-default btn-flat">Perfil</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo MAIN_LINK; ?>controllers/logOutController.php" class="btn btn-default btn-flat">Desconectarse</a>
                 </div>
               </li>
             </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
         </ul>
       </div>
@@ -215,12 +218,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php echo MAIN_LINK; ?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <p><?php if(isset($_SESSION["user"])){ echo ucwords($_SESSION["user"]); } ?></p>
         </div>
       </div>
 
@@ -238,21 +239,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">HEADER</li>
+        <li class="header">MENÚ DE GESTIÓN</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
-          </ul>
-        </li>
+        <li class="<?php if($page == "professionals"){ echo "active";} ?>"><a href="<?php echo MAIN_LINK; ?>pages/professionals.php"><i class="fa fa-plus"></i><span>Profesionales</span></a></li>
+        <li class="<?php if($page == "projects"){ echo "active";} ?>"><a href="<?php echo MAIN_LINK; ?>pages/projects.php"><i class="fa fa-plus"></i><span>Proyectos</span></a></li>        
       </ul>
       <!-- /.sidebar-menu -->
     </section>
