@@ -6,10 +6,14 @@ if(isset($_POST["user"]))
 {
     if($users=$access->loginProfessional($_POST["user"],$_POST["password"]))
     {
+        $id=$users["id_profesional"];
         $user=$users["nombre"];
         $_SESSION["user"]=$user;
-        header("Location:".MAIN_LINK."index.php");        
-        exit;
+        if($access->checkPermissions($id))
+        {
+            header("Location:".MAIN_LINK."index.php");        
+            exit;
+        }        
     }
 }
 else

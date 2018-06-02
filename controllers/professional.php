@@ -17,6 +17,7 @@ if(isset($_POST["valor"]))
             {
                 $mensaje="email";
                 echo $mensaje;
+                exit;
             }
         }
     }
@@ -32,11 +33,8 @@ if(isset($_POST["valor"]))
                 {
                     $mensaje="usuario";
                     echo $mensaje;
-                }
-                else
-                {
-                    return false;
-                }                
+                    exit;
+                }               
             }
     }    
 }

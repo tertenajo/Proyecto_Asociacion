@@ -51,7 +51,8 @@ function devuelveDatos(data)
 function editarproyecto()
 {
 	var name = $("#name1").val();
-	var oldname = sessionStorage.getItem('name');
+	var oldname = $("#oldname").val();
+	
 	if(name == "")
 	{
 		$("#errors").html("<div class='alert alert-danger alert-dismissible'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button><p>Introduzca un nombre</p></div>");

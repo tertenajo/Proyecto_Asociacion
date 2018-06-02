@@ -76,7 +76,7 @@ Class Professionals
         $sql="UPDATE ".PREF_TABLE."profesionales SET nombre='".$name."',telefono='".$phone."',email='".$email."' WHERE id_profesional=".$id.";";
         if($res=Connection::con()->query($sql))
         {                
-            if(isset($_POST["password"]))
+            if(isset($_POST["password"]) && $_POST["password"] != "")
             {
                 $password=htmlspecialchars($_POST["password"]);        
                 $password=hash('sha512',$password);
@@ -84,7 +84,7 @@ Class Professionals
             }
             else
             {
-                $editlogin="INSERT INTO ".PREF_TABLE."login (id_login,id_profesional,usuario,password) VALUES (0,".$id.",'".$user."');";
+                $editlogin="UPDATE ".PREF_TABLE."login SET usuario='".$user."' WHERE id_profesional=".$id.";";
             }                
                 
             if($editlogin=Connection::con()->query($editlogin))

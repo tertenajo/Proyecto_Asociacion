@@ -14,7 +14,7 @@ require_once("../includes/initializer.php");
                     estado VARCHAR(4) NOT NULL,
                     nombre VARCHAR(150) NOT NULL,
                     apellidos VARCHAR(150) NOT NULL,
-                 	dni CHAR(9) NOT NULL UNIQUE,
+                 	dni VARCHAR(15) NOT NULL UNIQUE,
                  	sexo VARCHAR(6) NOT NULL,
                  	fecha_nac date NOT NULL,
                  	direccion VARCHAR(150) NOT NULL,

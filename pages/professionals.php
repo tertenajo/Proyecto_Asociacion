@@ -38,7 +38,14 @@ require_once(LIB_DIR."header.php");
                       <th>Teléfono</th>
                       <th>Email</th>
                       <th>Proyectos/Roles</th>
+                    <?php
+                        if($_SESSION["permission"] == "admin")
+                        {
+                    ?>
                       <th>Acciones</th>
+                    <?php
+                        }
+                    ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,6 +62,10 @@ require_once(LIB_DIR."header.php");
                     <i class="fa fa-users" aria-hidden="true"></i>
                   </button>
                   </td>
+                  <?php
+                    if($_SESSION["permission"] == "admin")
+                    {
+                  ?>
                   <td>
                   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editarprofessional" data-whatever="<?php echo $profesional["id_profesional"]."/".$profesional["nombre"]."/".$profesional["telefono"]."/".$profesional["email"]."/".$profesional["admin"]."/".$profesional["usuario"]; ?>">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -63,6 +74,9 @@ require_once(LIB_DIR."header.php");
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                   </button>
                   </td>
+                  <?php
+                    }
+                  ?>
                 </tr>
               <?php
                     }
@@ -82,9 +96,7 @@ require_once(LIB_DIR."header.php");
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Añadir Profesional</h4>
               </div>        
-              <div class="modal-body">
-              <div id="error">
-              </div>                
+              <div class="modal-body">              
                   <div class="box-body">
                     <div class="form-group">
                       <label for="name">Nombre</label>
@@ -111,7 +123,9 @@ require_once(LIB_DIR."header.php");
                         <input type="checkbox" name="administrador" value="si" /> Administrador
                       </label>
                     </div>
-                  </div>            
+                  </div>
+              <div id="error">
+              </div>              
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
@@ -136,9 +150,7 @@ require_once(LIB_DIR."header.php");
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Editar Profesional</h4>
               </div>        
-              <div class="modal-body">
-              <div id="errors">
-              </div>                
+              <div class="modal-body">             
                   <div class="box-body">
                     <div class="form-group">
                       <label for="name">Nombre</label>
@@ -165,11 +177,15 @@ require_once(LIB_DIR."header.php");
                         <input type="checkbox" id="admin1" name="administrador" value="si" /> Administrador
                       </label>
                     </div>
-                  </div>            
+                  </div>
+              <div id="errors">
+              </div>               
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
                 <input type="hidden" name="idprofesional" />
+                <input type="hidden" name="oldemail" id="oldemail" />
+                <input type="hidden" name="olduser" id="olduser" />
                 <input type="submit" class="btn btn-success" id="editarprofesional" value="Editar" />
               </div>
             </div>
@@ -211,7 +227,7 @@ require_once(LIB_DIR."header.php");
         <!-- /.modal -->
         
         <!-- /.modal -->
-        <form role="form" action="<?php echo MAIN_LINK; ?>controllers/insertFunctions.php" method="post" id="insertarfunctiones">
+        <form role="form" action="<?php echo MAIN_LINK; ?>controllers/insertFunctions.php" method="post" id="insertarfunciones">
         <div class="modal fade" id="proyectosroles">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -335,10 +351,10 @@ $('#editarprofessional').on('show.bs.modal', function (event) {
           modal.find('input[name="user"]').val(update[5]);
           if(update[4] == update[0])
           {
-            modal.find('input[id="admin1"]').prop('checked',true); 
+            modal.find('input[name="administrador"]').prop('checked',true); 
           }
-          sessionStorage.setItem('email', update[3]);
-          sessionStorage.setItem('user', update[5]);          
+          modal.find('input[name="oldemail"]').val(update[3]);
+          modal.find('input[name="olduser"]').val(update[5]);          
   });
 $('#eliminarprofessional').on('show.bs.modal', function (event) {
           var button = $(event.relatedTarget); // Button that triggered the modal

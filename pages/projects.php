@@ -72,15 +72,15 @@ require_once(LIB_DIR."header.php");
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Añadir Proyecto</h4>
               </div>        
-              <div class="modal-body">
-              <div id="error">
-              </div>                
+              <div class="modal-body">                
                   <div class="box-body">
                     <div class="form-group">
                       <label for="name">Nombre</label>
                       <input type="text" class="form-control" id="name" name="name" pattern="[A-Za-z0-9 ]+" required="required" />
                     </div>
-                  </div>            
+                  </div>
+              <div id="error">
+              </div>            
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
@@ -105,19 +105,20 @@ require_once(LIB_DIR."header.php");
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Editar Proyecto</h4>
               </div>        
-              <div class="modal-body">
-              <div id="errors">
-              </div>                
+              <div class="modal-body">                
                   <div class="box-body">
                     <div class="form-group">
                       <label for="name">Nombre</label>
                       <input type="text" class="form-control" id="name1" name="name" pattern="[A-Za-z0-9 ]+" title="No se admiten números" required="required"  />
                     </div>
-                  </div>            
+                  </div>
+              <div id="errors">
+              </div>                
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
                 <input type="hidden" name="idproyecto" />
+                <input type="hidden" name="oldname" id="oldname" />
                 <input type="submit" class="btn btn-success" id="editarprojects" value="Editar" />
               </div>
             </div>
@@ -165,7 +166,6 @@ require_once(LIB_DIR."header.php");
 <?php
 require_once(LIB_DIR."footer.php");
 ?>
-<script src="<?php echo MAIN_LINK; ?>dist/js/projects.js"></script>
 <script>
  $(function () {
     $('#proyectos').DataTable({
@@ -236,7 +236,7 @@ $('#editarproyecto').on('show.bs.modal', function (event) {
           var modal = $(this);
           modal.find('input[name="idproyecto"]').val(update[0]);
           modal.find('input[name="name"]').val(update[1]);
-          sessionStorage.setItem('name', update[1]);         
+          modal.find('input[id="oldname"]').val(update[1]);        
   });
 $('#eliminarproyecto').on('show.bs.modal', function (event) {
           var button = $(event.relatedTarget); // Button that triggered the modal

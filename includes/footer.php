@@ -40,8 +40,18 @@
 <script src="<?php echo MAIN_LINK ?>bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo MAIN_LINK ?>dist/js/adminlte.min.js"></script>
-<!--OTHER FILES JS -->
-<script src="<?php echo MAIN_LINK; ?>dist/js/users.js"></script>
+<!-- fullCalendar -->
+<script src="<?php echo MAIN_LINK; ?>bower_components/moment/moment.js"></script>
+<script src="<?php echo MAIN_LINK; ?>bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+<!-- OTHER JS -->
+<?php
+    if($page != "home")
+    {
+?>
+        <script src="<?php echo MAIN_LINK; ?>dist/js/<?php echo $page; ?>.js"></script>
+<?php
+    }
+?>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->

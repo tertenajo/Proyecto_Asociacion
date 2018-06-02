@@ -248,6 +248,7 @@ function eliminar()
 function comprobarselects()
 {
 	$("#errorproyecto").html("");
+	var resultados = new Array();
 	var numproyectosadd = $("#projects select").length;	
 	if(numproyectosadd > 0)
 	{
@@ -257,24 +258,27 @@ function comprobarselects()
 		for (var i = 1; i< numproyectosadd; i++)
 		{
 			var resultadoslong = resultados.length;
+			var repetido = "NO";
 			for (var j = 0; j < resultadoslong; j++)
 			{
 				if(projectsfinales[i].value == resultados[j])
 				{
+					repetido = "SI";
 					$("#errorproyecto").html("<div class='alert alert-danger alert-dismissible'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button><p>No se puede repetir proyectos.</p></div>");
 					return false;
 				}
-				else
-				{
-					resultados[resultados.length] = projectsfinales[i].value;
-				}
+			}
+			if(repetido == "NO")
+			{
+				resultados[resultados.length] = projectsfinales[i].value;
 			}
 		}
 		var numproyectos = $("#projects select").length;
 		var numrevisados = resultados.length;
+		
 		if(numproyectos == numrevisados)
 		{
-			$("#insertarfunctiones").submit();
+			$("#insertarfunciones").submit();
 		}
 	}
 	else
@@ -292,8 +296,9 @@ function editarprofesional()
     var emails = $("#email1").val();
 	var users = $("#user1").val();
 	var passwd = $("#password1").val();
-	var olduser = sessionStorage.getItem('user');
-	var oldemail = sessionStorage.getItem('email');
+	var olduser = $("#olduser").val();
+	var oldemail = $("#oldemail").val();
+	
 	if(name == "")
 	{
 		$("#errors").html("<div class='alert alert-danger alert-dismissible'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button><p>Introduzca un nombre</p></div>");
@@ -351,20 +356,6 @@ function editarprofesional()
 	{
 		var parametros = {
 		valor : "OK",
-        user: users
-		};
-		var urls = "../controllers/professional.php";
-		$.ajax({async:true,
-				type:"POST",
-				url:urls,
-				data:parametros,
-				success:devuelveDatos1});
-	}
-	else if(oldemail != emails && olduser != users)
-	{
-		var parametros = {
-		valor : "OK",
-        email: emails,
         user: users
 		};
 		var urls = "../controllers/professional.php";
